@@ -23,7 +23,9 @@ ARGF.readline
 ARGF.each do |line|
   line = line.gsub(/\n/, '')
   STDERR.puts (PRESEARCH + URI::encode(line))
-  result = JSON.parse(open(PRESEARCH + URI::encode(line)).read)
+  data = open(PRESEARCH + URI::encode(line)).read
+  next if data.size < 1
+  result = JSON.parse(data)
   next if result.nil?
   result = result.first
   next if result.nil?
